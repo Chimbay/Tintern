@@ -1,0 +1,11 @@
+.card {
+    background-color: rgb(131, 61, 61);
+    margin: 10px;
+    width: 250px;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+}
+.jobTitle,
+.companyName {
+    text-align: center;
+}
