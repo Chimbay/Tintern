@@ -6,7 +6,8 @@ import path from "path";
 const app = express();
 const PORT = 8080;
 
-// Run CORS for react port
+export async function startExpressServer() {
+  // Run CORS for react port
 app.use(cors());
 // Middleware to parse JSON request body
 app.use(express.json());
@@ -25,16 +26,17 @@ app.get("/api/data", (req, res) => {
 });
 // POST route to modify and save data to the JSON file
 app.post("/api/data", (req, res) => {
-  const newData = req.body;
-
-  fs.writeFile(filePath, JSON.stringify(newData, null, 2), "utf8", (err) => {
-    if (err) {
-      return res.status(500).json({ message: "Error saving data" });
-    }
-    res.json({ message: "Data updated successfully", data: newData });
-  });
+  const file = "ignore_list.json"
+  fs.readFile(file, (err, data) => {
+    const existingData = JSON.parse(data || []);
+    existingData.push(req.body);
+    fs.writeFile(file, JSON.stringify(existingData), () => {
+      res.json({message: "Data added successfully"})
+    })
+  })
 });
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+}

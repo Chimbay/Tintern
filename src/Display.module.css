@@ -1,0 +1,6 @@
+.mainContent {
+    background-color: gray;
+    width: fit-content;
+    height: fit-content;
+    overflow: hidden;
+}
